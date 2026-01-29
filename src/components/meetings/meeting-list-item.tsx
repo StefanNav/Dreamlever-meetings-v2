@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Tooltip } from "@/components/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { StatusBadge } from "./status-badge";
+import { MeetingSummaryDrawer } from "./meeting-summary-drawer";
 import { cn } from "@/lib/utils";
 
 // Mock department agendas data
@@ -31,6 +32,7 @@ export function MeetingListItem({ meeting, className }: MeetingListItemProps) {
   const [aiEnabled, setAiEnabled] = useState(meeting.aiEnabled);
   const [isAgendaDropdownOpen, setIsAgendaDropdownOpen] = useState(false);
   const [selectedAgendas, setSelectedAgendas] = useState<string[]>([]);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const isPast = meeting.status === "past";
   const isLive = meeting.status === "live";
@@ -245,7 +247,10 @@ export function MeetingListItem({ meeting, className }: MeetingListItemProps) {
                     <p className="text-sm text-muted-foreground mb-3">
                       {meeting.previousSummary}
                     </p>
-                    <button className="text-sm text-cyan hover:text-cyan-dark transition-colors font-medium">
+                    <button 
+                      onClick={() => setIsDrawerOpen(true)}
+                      className="text-sm text-cyan hover:text-cyan-dark transition-colors font-medium"
+                    >
                       View Full Transcript
                     </button>
                   </>
@@ -255,6 +260,13 @@ export function MeetingListItem({ meeting, className }: MeetingListItemProps) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Meeting Summary Drawer */}
+      <MeetingSummaryDrawer 
+        meeting={meeting}
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+      />
     </div>
   );
 }
