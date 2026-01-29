@@ -20,7 +20,7 @@ export function AllMeetingsSection({ initialMeetings }: AllMeetingsSectionProps)
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isAiSettingsOpen, setIsAiSettingsOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
-  const [visibleSection, setVisibleSection] = useState<"all" | "upcoming" | "past">("all");
+  const [visibleSection, setVisibleSection] = useState<"upcoming" | "past">("upcoming");
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const upcomingSectionRef = useRef<HTMLDivElement>(null);
@@ -42,16 +42,11 @@ export function AllMeetingsSection({ initialMeetings }: AllMeetingsSectionProps)
       const upcomingRect = upcomingSectionRef.current?.getBoundingClientRect();
       const pastRect = pastSectionRef.current?.getBoundingClientRect();
 
-      // Check if we're at the top of the section (All)
-      const sectionRect = sectionRef.current?.getBoundingClientRect();
-      if (sectionRect && sectionRect.top > -50) {
-        setVisibleSection("all");
-      } else if (pastRect && pastRect.top <= offset) {
+      // Determine which section is visible
+      if (pastRect && pastRect.top <= offset) {
         setVisibleSection("past");
-      } else if (upcomingRect && upcomingRect.top <= offset) {
-        setVisibleSection("upcoming");
       } else {
-        setVisibleSection("all");
+        setVisibleSection("upcoming");
       }
     };
 
@@ -65,10 +60,7 @@ export function AllMeetingsSection({ initialMeetings }: AllMeetingsSectionProps)
   const handleTabClick = useCallback((tab: FilterType) => {
     const headerHeight = headerRef.current?.getBoundingClientRect().height || 120;
     
-    if (tab === "all") {
-      // Scroll to top of the section
-      sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else if (tab === "upcoming") {
+    if (tab === "upcoming") {
       // Scroll to upcoming section
       if (upcomingSectionRef.current) {
         const y = upcomingSectionRef.current.getBoundingClientRect().top + window.scrollY - headerHeight - 20;

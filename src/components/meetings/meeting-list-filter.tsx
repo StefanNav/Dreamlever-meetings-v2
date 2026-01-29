@@ -11,7 +11,6 @@ interface MeetingListFilterProps {
 }
 
 const filters: { value: FilterType; label: string }[] = [
-  { value: "all", label: "All" },
   { value: "upcoming", label: "Upcoming" },
   { value: "past", label: "Past" },
 ];

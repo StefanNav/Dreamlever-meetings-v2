@@ -47,4 +47,4 @@ export interface Meeting {
 }
 
 export type DayFilter = "coming-up" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun";
-export type MeetingListFilter = "all" | "upcoming" | "past";
+export type MeetingListFilter = "upcoming" | "past";
