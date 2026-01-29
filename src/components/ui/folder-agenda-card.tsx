@@ -96,6 +96,7 @@ interface FolderAgendaCardProps {
   agendaItems: string[];
   count: number;
   avatars: Array<{ id: string; name: string; avatar?: string }>;
+  cadence?: string;
   href?: string;
   color?: ColorVariant;
   className?: string;
@@ -227,6 +228,7 @@ export function FolderAgendaCard({
   agendaItems,
   count,
   avatars,
+  cadence,
   href = "#",
   color = "purple",
   className,
@@ -419,9 +421,16 @@ export function FolderAgendaCard({
 
             {/* Folder Content */}
             <div className="absolute top-[20px] left-[18px] right-[18px] bottom-[16px] flex flex-col justify-between">
-              <h3 className="text-[19px] font-semibold text-white leading-[19px] drop-shadow-sm">
-                {departmentLabel}
-              </h3>
+              <div>
+                <h3 className="text-[19px] font-semibold text-white leading-[19px] drop-shadow-sm">
+                  {departmentLabel}
+                </h3>
+                {cadence && (
+                  <p className="text-[12px] text-white/70 leading-[16px] mt-1">
+                    {cadence}
+                  </p>
+                )}
+              </div>
 
               <div className="flex items-center justify-between">
                 <span className="text-[14px] text-white/85 leading-[20px]">

@@ -15,6 +15,7 @@ const folderAgendaData = [
   {
     id: "1",
     departmentLabel: "Operations",
+    cadence: "Mondays · 9:00 AM",
     agendaItems: [
       "Review Q1 roadmap priorities",
       "Discuss hiring pipeline updates",
@@ -40,6 +41,7 @@ const folderAgendaData = [
   {
     id: "2",
     departmentLabel: "Engineering",
+    cadence: "Tue / Thu · 10:00 AM",
     agendaItems: [
       "Sprint retrospective",
       "Technical debt review",
@@ -59,6 +61,7 @@ const folderAgendaData = [
   {
     id: "3",
     departmentLabel: "Design",
+    cadence: "Wednesdays · 2:00 PM",
     agendaItems: [
       "Component library updates",
       "User testing results",
@@ -78,6 +81,7 @@ const folderAgendaData = [
   {
     id: "4",
     departmentLabel: "Marketing",
+    cadence: "Mon / Wed · 1:00 PM",
     agendaItems: [
       "Campaign budget review",
       "Social media rollout",
@@ -97,6 +101,7 @@ const folderAgendaData = [
   {
     id: "5",
     departmentLabel: "Sales",
+    cadence: "Fridays · 8:30 AM",
     agendaItems: [
       "Pipeline review",
       "Lead qualification criteria",
@@ -118,6 +123,7 @@ const folderAgendaData = [
   {
     id: "6",
     departmentLabel: "Product",
+    cadence: "Thursdays · 11:00 AM",
     agendaItems: [
       "Roadmap prioritization",
       "Feature requests review",
@@ -189,6 +195,7 @@ export default function MeetingsPage() {
               <FolderAgendaCard
                 key={folder.id}
                 departmentLabel={folder.departmentLabel}
+                cadence={folder.cadence}
                 agendaItems={folder.agendaItems}
                 count={folder.count}
                 color={folder.color}
