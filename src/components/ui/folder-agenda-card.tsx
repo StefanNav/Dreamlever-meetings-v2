@@ -11,84 +11,30 @@ import { cn } from "@/lib/utils";
 // ============================================================================
 
 export const folderDesignTokens = {
-  // Paper styling
   paper: {
-    background: "#faf9f7", // Warm off-white
+    background: "#FCFCFC",
     borderRadius: "8px",
-    border: "1px solid rgba(0, 0, 0, 0.06)",
+    border: "1px solid #D1D1D1",
     shadow: "0 1px 2px rgba(0, 0, 0, 0.04)",
     shadowHover: "0 8px 20px -4px rgba(0, 0, 0, 0.12), 0 4px 8px -4px rgba(0, 0, 0, 0.08)",
   },
-  // Front folder styling
   front: {
+    background: "linear-gradient(180deg, #FFF 0%, #D2D2D2 100%)",
     borderRadius: "14px",
-    rimHighlight: "inset 0 1px 0 0 rgba(255, 255, 255, 0.2)",
-    border: "1px solid rgba(255, 255, 255, 0.1)",
-    shadow: "0 4px 12px -2px rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.08)",
-    shadowHover: "0 20px 40px -8px rgba(0, 0, 0, 0.2), 0 8px 16px -4px rgba(0, 0, 0, 0.12)",
+    border: "2px solid #E6E6E6",
+    shadow: "0 4px 4px 0 rgba(63, 140, 156, 0.19)",
+    shadowHover: "0 20px 40px -8px rgba(63, 140, 156, 0.25), 0 8px 16px -4px rgba(63, 140, 156, 0.15)",
   },
-  // Back folder styling
   back: {
-    darkenAmount: 0.06, // 6% darker than front
-    shadow: "0 2px 8px -2px rgba(0, 0, 0, 0.1)",
+    background: "linear-gradient(180deg, #FFF 0%, #6D9097 100%)",
   },
-  // Crease shadow between paper and front folder
-  crease: {
-    shadow: "0 -2px 4px -1px rgba(0, 0, 0, 0.08)",
-  },
-  // Avatar styling
   avatar: {
     size: 24,
     overlap: -8,
-    pillBackground: "rgba(0, 0, 0, 0.15)",
-    pillPadding: "2px 4px 2px 6px",
-    pillBorderRadius: "14px",
-    border: "1px solid rgba(255, 255, 255, 0.25)",
+    border: "1px solid rgba(255, 255, 255, 0.5)",
     shadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
   },
 };
-
-// Color configuration with desaturated variants and gradients
-const colorVariants = {
-  purple: {
-    front: "#7161d1",        // Desaturated ~18%
-    frontGradient: "linear-gradient(180deg, #7d6dd9 0%, #6555c4 100%)",
-    back: "#655ab8",         // 6% darker
-    backGradient: "linear-gradient(180deg, #7161d1 0%, #5a4faa 100%)",
-  },
-  blue: {
-    front: "#4a8fd4",        // Desaturated ~15%
-    frontGradient: "linear-gradient(180deg, #5599dc 0%, #4085c8 100%)",
-    back: "#4280c0",         // 6% darker
-    backGradient: "linear-gradient(180deg, #4a8fd4 0%, #3a75b0 100%)",
-  },
-  green: {
-    front: "#2eb08a",        // Desaturated ~15%
-    frontGradient: "linear-gradient(180deg, #38ba94 0%, #26a07c 100%)",
-    back: "#289a78",         // 6% darker
-    backGradient: "linear-gradient(180deg, #2eb08a 0%, #1f8a6a 100%)",
-  },
-  orange: {
-    front: "#e5a033",        // Desaturated ~12%
-    frontGradient: "linear-gradient(180deg, #eba83d 0%, #d89428 100%)",
-    back: "#d1922b",         // 6% darker
-    backGradient: "linear-gradient(180deg, #e5a033 0%, #c58520 100%)",
-  },
-  pink: {
-    front: "#d85a94",        // Desaturated ~15%
-    frontGradient: "linear-gradient(180deg, #e0659e 0%, #cc4f88 100%)",
-    back: "#c84f86",         // 6% darker
-    backGradient: "linear-gradient(180deg, #d85a94 0%, #b8447a 100%)",
-  },
-  yellow: {
-    front: "#d4a024",        // Amber/gold
-    frontGradient: "linear-gradient(180deg, #e0ab2e 0%, #c4941e 100%)",
-    back: "#b8901c",         // 6% darker
-    backGradient: "linear-gradient(180deg, #d4a024 0%, #a88218 100%)",
-  },
-} as const;
-
-type ColorVariant = keyof typeof colorVariants;
 
 interface FolderAgendaCardProps {
   departmentLabel: string;
@@ -98,7 +44,6 @@ interface FolderAgendaCardProps {
   avatars: Array<{ id: string; name: string; avatar?: string }>;
   cadence?: string;
   href?: string;
-  color?: ColorVariant;
   className?: string;
 }
 
@@ -192,8 +137,10 @@ const reducedMotionContainerVariants: Variants = {
   hover: { zIndex: 50 }
 };
 
-// SVG Folder Back Shape - cleaner tab with flatter top and smoother transitions
-function FolderBackShape({ gradient }: { gradient: string }) {
+// SVG Folder Back Shape with gradient fill and border
+function FolderBackShape() {
+  const pathData = "M0 26C0 16.059 8.059 8 18 8H170C178 8 184 10 188 16L198 32C202 38 208 42 216 42H354C363.941 42 372 50.059 372 60V179C372 188.941 363.941 197 354 197H18C8.059 197 0 188.941 0 179V26Z";
+  
   return (
     <svg
       viewBox="0 0 372 197"
@@ -202,22 +149,18 @@ function FolderBackShape({ gradient }: { gradient: string }) {
       preserveAspectRatio="none"
     >
       <defs>
-        <linearGradient id={`backGrad-${gradient.replace(/[^a-z0-9]/gi, '')}`} x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" style={{ stopColor: 'rgba(255,255,255,0.08)' }} />
-          <stop offset="100%" style={{ stopColor: 'rgba(0,0,0,0.04)' }} />
+        <linearGradient id="backFill" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style={{ stopColor: '#FFF' }} />
+          <stop offset="100%" style={{ stopColor: '#6D9097' }} />
+        </linearGradient>
+        <linearGradient id="backBorder" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style={{ stopColor: '#E7F8FA' }} />
+          <stop offset="43%" style={{ stopColor: '#ABE5F1' }} />
+          <stop offset="100%" style={{ stopColor: '#E7F8FA' }} />
         </linearGradient>
       </defs>
-      {/* Cleaner tab shape - flatter top, manufactured feel */}
-      <path
-        d="M0 18C0 8.059 8.059 0 18 0H92C98 0 103 2 106 7L116 24C120 30 126 34 134 34H354C363.941 34 372 42.059 372 52V179C372 188.941 363.941 197 354 197H18C8.059 197 0 188.941 0 179V18Z"
-        fill="url(#backGradFill)"
-        style={{ fill: gradient }}
-      />
-      {/* Gradient overlay for depth */}
-      <path
-        d="M0 18C0 8.059 8.059 0 18 0H92C98 0 103 2 106 7L116 24C120 30 126 34 134 34H354C363.941 34 372 42.059 372 52V179C372 188.941 363.941 197 354 197H18C8.059 197 0 188.941 0 179V18Z"
-        fill={`url(#backGrad-${gradient.replace(/[^a-z0-9]/gi, '')})`}
-      />
+      <path d={pathData} fill="url(#backFill)" />
+      <path d={pathData} stroke="url(#backBorder)" strokeWidth="2" fill="none" />
     </svg>
   );
 }
@@ -230,7 +173,6 @@ export function FolderAgendaCard({
   avatars,
   cadence,
   href = "#",
-  color = "purple",
   className,
 }: FolderAgendaCardProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -241,7 +183,6 @@ export function FolderAgendaCard({
   const startYRef = useRef(0);
   const scrollStartRef = useRef(0);
   
-  const colorConfig = colorVariants[color];
   const maxDisplayAvatars = 3;
   const displayAvatars = avatars.slice(0, maxDisplayAvatars);
   const remainingAvatars = avatars.length - maxDisplayAvatars;
@@ -286,14 +227,9 @@ export function FolderAgendaCard({
         whileHover="open"
         whileFocus="open"
       >
-        {/* Folder Back Body - darker with gradient */}
-        <div 
-          className="absolute top-0 left-0 right-0 h-[197px]"
-          style={{
-            filter: "drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1))"
-          }}
-        >
-          <FolderBackShape gradient={colorConfig.back} />
+        {/* Folder Back Body */}
+        <div className="absolute top-0 left-0 right-0 h-[197px] z-0">
+          <FolderBackShape />
         </div>
 
         {/* Paper clip container - clips bottom but allows overflow on top */}
@@ -386,7 +322,7 @@ export function FolderAgendaCard({
           </motion.div>
         </div>
 
-        {/* Front Folder Panel - gradient with rim highlight */}
+        {/* Front Folder Panel */}
         <div 
           className="absolute top-[95px] left-0 right-0 h-[126px]"
           style={{ perspective: 800, zIndex: 10 }}
@@ -396,44 +332,29 @@ export function FolderAgendaCard({
             variants={activeFrontVariants}
             style={{ 
               transformOrigin: "top center",
-              background: colorConfig.frontGradient,
+              background: folderDesignTokens.front.background,
               borderRadius: folderDesignTokens.front.borderRadius,
               border: folderDesignTokens.front.border,
             }}
           >
-            {/* Top rim highlight */}
-            <div 
-              className="absolute top-0 left-0 right-0 h-[1.5px]"
-              style={{
-                background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 20%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.25) 80%, transparent 100%)",
-                borderRadius: `${folderDesignTokens.front.borderRadius} ${folderDesignTokens.front.borderRadius} 0 0`
-              }}
-            />
-            
-            {/* Inner shadow for depth */}
-            <div 
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                boxShadow: "inset 0 -20px 30px -20px rgba(0,0,0,0.1)",
-                borderRadius: folderDesignTokens.front.borderRadius,
-              }}
-            />
+            {/* Top highlight line */}
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-white/40" />
 
             {/* Folder Content */}
-            <div className="absolute top-[20px] left-[18px] right-[18px] bottom-[16px] flex flex-col justify-between">
+            <div className="absolute top-[20px] left-[18px] right-[18px] bottom-[16px] flex flex-col justify-between pointer-events-none">
               <div>
-                <h3 className="text-[19px] font-semibold text-white leading-[19px] drop-shadow-sm">
+                <h3 className="text-[19px] font-semibold text-gray-800 leading-[19px]">
                   {departmentLabel}
                 </h3>
                 {cadence && (
-                  <p className="text-[12px] text-white/70 leading-[16px] mt-1">
+                  <p className="text-[12px] text-gray-500 leading-[16px] mt-1">
                     {cadence}
                   </p>
                 )}
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="text-[14px] text-white/85 leading-[20px]">
+                <span className="text-[14px] text-gray-600 font-medium leading-[20px]">
                   {count} {count === 1 ? "item" : "items"}
                 </span>
 
@@ -459,7 +380,7 @@ export function FolderAgendaCard({
                             alt={avatar.name}
                             className="object-cover"
                           />
-                          <AvatarFallback className="bg-[#5c6370] text-white text-[9px] font-semibold">
+                          <AvatarFallback className="bg-slate-400 text-white text-[9px] font-semibold">
                             {avatar.name
                               .split(" ")
                               .map((n) => n[0])
@@ -470,17 +391,16 @@ export function FolderAgendaCard({
                     ))}
                     {remainingAvatars > 0 && (
                       <div 
-                        className="relative rounded-full bg-[#4a5260] flex items-center justify-center"
+                        className="relative rounded-full bg-[#6D9097] flex items-center justify-center"
                         style={{ 
                           marginLeft: `${folderDesignTokens.avatar.overlap}px`,
                           width: `${folderDesignTokens.avatar.size}px`,
                           height: `${folderDesignTokens.avatar.size}px`,
                           zIndex: maxDisplayAvatars + 1,
                           border: folderDesignTokens.avatar.border,
-                          boxShadow: folderDesignTokens.avatar.shadow,
                         }}
                       >
-                        <span className="text-[9px] font-semibold text-white/90">
+                        <span className="text-[9px] font-semibold text-white">
                           +{remainingAvatars}
                         </span>
                       </div>

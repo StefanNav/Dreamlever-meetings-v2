@@ -1,6 +1,6 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { Search, Calendar } from "lucide-react";
 import Image from "next/image";
 
 function MileAiButton() {
@@ -20,7 +20,10 @@ function MileAiButton() {
 export function Header() {
   return (
     <header className="flex items-center justify-between py-6">
-      <h1 className="text-3xl font-semibold text-foreground">Agendas</h1>
+      <div className="flex items-center gap-3">
+        <Calendar className="w-7 h-7 text-[#2D4A50]" />
+        <h1 className="text-3xl font-semibold text-[#2D4A50]">Recurring meetings</h1>
+      </div>
       <div className="flex items-center gap-4">
         <button
           className="p-2 rounded-full hover:bg-muted transition-colors"
