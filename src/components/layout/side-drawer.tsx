@@ -6,7 +6,6 @@ import { ChevronsRight, ChevronsLeft, Home, Target, Calendar, Users, Settings } 
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NotificationsPopover } from "./notifications-popover";
 
 interface NavItem {
   label: string;
@@ -157,11 +156,6 @@ export function SideDrawer({ defaultOpen = false }: SideDrawerProps) {
 
             {/* Bottom Section */}
             <div className="px-2 pb-4">
-              {/* Notifications Popover */}
-              <div className="mb-1">
-                <NotificationsPopover onCloseDrawer={() => setIsOpen(false)} />
-              </div>
-
               {/* Bottom Navigation Items */}
               <ul className="space-y-1 mb-4">
                 {bottomNavItems.map((item) => (

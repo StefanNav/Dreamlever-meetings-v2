@@ -15,7 +15,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "@/context/sidebar-context";
-import { NotificationsPopover } from "./notifications-popover";
 import { Tooltip } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
@@ -229,14 +228,6 @@ function SidebarContent({ isCollapsed }: { isCollapsed: boolean }) {
 
       {/* Bottom Section */}
       <div className={cn("pb-4", isCollapsed ? "px-1.5" : "px-2")}>
-        {/* Notifications Popover */}
-        <div className={cn("mb-1", isCollapsed && "flex justify-center")}>
-          <NotificationsPopover
-            onCloseDrawer={handleNavClick}
-            isCollapsed={isCollapsed}
-          />
-        </div>
-
         {/* Bottom Navigation Items */}
         <ul className={cn("space-y-1 mb-4", isCollapsed && "flex flex-col items-center")}>
           {bottomNavItems.map((item) => (

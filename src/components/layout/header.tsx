@@ -1,7 +1,10 @@
 "use client";
 
-import { Search, Calendar } from "lucide-react";
+import { useState } from "react";
+import { Search, Calendar, Bell } from "lucide-react";
 import Image from "next/image";
+import { mockNotifications } from "@/lib/notifications-data";
+import { NotificationsDrawer } from "./notifications-drawer";
 
 function MileAiButton() {
   return (
@@ -18,21 +21,41 @@ function MileAiButton() {
 }
 
 export function Header() {
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const hasUnread = mockNotifications.some((n) => !n.isRead);
+
   return (
-    <header className="flex items-center justify-between py-6">
-      <div className="flex items-center gap-3">
-        <Calendar className="w-7 h-7 text-heading-1" />
-        <h1 className="text-3xl font-semibold text-heading-1">Recurring meetings</h1>
-      </div>
-      <div className="flex items-center gap-4">
-        <button
-          className="p-2 rounded-full hover:bg-muted transition-colors"
-          aria-label="Search"
-        >
-          <Search className="w-5 h-5 text-muted-foreground" />
-        </button>
-        <MileAiButton />
-      </div>
-    </header>
+    <>
+      <header className="flex items-center justify-between py-6">
+        <div className="flex items-center gap-3">
+          <Calendar className="w-7 h-7 text-heading-1" />
+          <h1 className="text-3xl font-semibold text-heading-1">Recurring meetings</h1>
+        </div>
+        <div className="flex items-center gap-4">
+          <button
+            className="p-2 rounded-full hover:bg-muted transition-colors"
+            aria-label="Search"
+          >
+            <Search className="w-5 h-5 text-muted-foreground" />
+          </button>
+          <button
+            className="relative p-2 rounded-full hover:bg-muted transition-colors"
+            aria-label="Notifications"
+            onClick={() => setIsNotificationsOpen(true)}
+          >
+            <Bell className="w-5 h-5 text-muted-foreground" />
+            {hasUnread && (
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-destructive rounded-full" />
+            )}
+          </button>
+          <MileAiButton />
+        </div>
+      </header>
+
+      <NotificationsDrawer
+        isOpen={isNotificationsOpen}
+        onClose={() => setIsNotificationsOpen(false)}
+      />
+    </>
   );
 }

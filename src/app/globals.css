@@ -361,6 +361,15 @@
   scrollbar-color: var(--muted-foreground) transparent;
 }
 
+/* Hidden scrollbar for horizontal scroll areas */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Source highlight for deep-link navigation */
 .source-highlight {
   background-color: #fef3c7 !important; /* yellow-100 */
